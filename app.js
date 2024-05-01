@@ -17,12 +17,13 @@ body.addEventListener("mousemove", (event) => {
 
 let today = new Date();
 let past = new Date("2023,04,28");
-//let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+let monthCalc = today.getMonth();
 function calcDate(date1, date2) {
     let diff = Math.floor(date1.getTime() - date2.getTime());
     let day = 1000 * 60 * 60 * 24;
-    let days = Math.floor(diff / day);
-    let months = Math.floor(days / 31);
+    let days = Math.round(diff / day);
+    let months = Math.round(days / monthDays[monthCalc]);
     let years = Math.floor(months / 12);
     //let msg = date2.toDateString();
     document.querySelector('.year').innerHTML = years;
