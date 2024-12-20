@@ -31,6 +31,7 @@ function calcDate(date1, date2) {
         document.querySelector('.year').innerHTML = 0;
         document.querySelector('.month').innerHTML = 0;
         document.querySelector('.day').innerHTML = 0;
+
     }
     document.querySelector('.year').innerHTML = years;
     document.querySelector('.month').innerHTML = months;
@@ -41,3 +42,33 @@ let counting = calcDate(today, past);
 
 
 setInterval(counting, 1000);
+
+// *light mode and dark mode
+document.addEventListener('DOMContentLoaded', (event) => {
+    const modeButton = document.querySelector('.mode');
+    const body = document.body;
+    const toggleIcon = document.querySelector("#moon");
+
+    // Check for saved user preference, if any, on load of the website
+    const currentMode = localStorage.getItem('mode') || 'light-mode';
+    body.classList.add(currentMode);
+    if (currentMode === 'dark-mode') {
+        toggleIcon.className = 'bi-brightness-high-fill';
+        toggleIcon.innerText = 'Light';
+    }
+
+    // Toggle the mode and save the preference in localStorage
+    modeButton.addEventListener('click', () => {
+        if (body.classList.contains('light-mode')) {
+            body.classList.replace('light-mode', 'dark-mode');
+            localStorage.setItem('mode', 'dark-mode');
+            toggleIcon.classList.replace('bi-moon-stars-fill', 'bi-brightness-high-fill');
+            toggleIcon.innerText = 'Light';
+        } else {
+            body.classList.replace('dark-mode', 'light-mode');
+            localStorage.setItem('mode', 'light-mode');
+            toggleIcon.classList.replace('bi-brightness-high-fill', 'bi-moon-stars-fill');
+            toggleIcon.innerText = 'Dark';
+        }
+    });
+});
