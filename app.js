@@ -19,17 +19,23 @@ let today = new Date();
 let past = new Date("2023,04,28");
 let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 let monthCalc = today.getMonth();
+
 function calcDate(date1, date2) {
     let diff = Math.floor(date1.getTime() - date2.getTime());
     let day = 1000 * 60 * 60 * 24;
-    let days = Math.round(diff / day);
-    let months = Math.round(days / monthDays[monthCalc]);
+    let days = Math.floor(diff / day);
+    let months = Math.floor(days / monthDays[monthCalc]);
     let years = Math.floor(months / 12);
-    //let msg = date2.toDateString();
+    months = months > 12 ? months -= 12 : months;
+    if (isNaN(months) || isNaN(years) || isNaN(days)) {
+        document.querySelector('.year').innerHTML = 0;
+        document.querySelector('.month').innerHTML = 0;
+        document.querySelector('.day').innerHTML = 0;
+    }
     document.querySelector('.year').innerHTML = years;
     document.querySelector('.month').innerHTML = months;
     document.querySelector('.day').innerHTML = days;
-    //return msg;
+
 }
 let counting = calcDate(today, past);
 
